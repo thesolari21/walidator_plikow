@@ -36,28 +36,25 @@ def translate(to_rapair, DICT_TRANSLATE, REGEX):
         translated.append(result)
 
     print('Niezgodnych elementów:', len(to_rapair))
-    print('\n{:20s} {:20s} {:20s}'.format('Nazwa', 'Nowa nazwa', 'Typ'))
+    print('\n{:30s} {:30s} {:30s}'.format('Nazwa', 'Nowa nazwa', 'Typ'))
     print('------------------------------------------------------------')
 
-    # sprawdzenie czy plik/katalog. Dalej wyswietl w tabelce
+    # sprawdz czy plik/katalog. Dalej wyswietl w tabelce
     for file, trans in zip(to_rapair, translated):
         if os.path.isfile(os.getcwd() + '/' + file):
             type = 'plik'
         else:
             type = 'katalog'
-        print('{:20s} {:20s} {:20s}'.format(file, trans, type))
+        print('{:30s} {:30s} {:30s}'.format(file, trans, type))
 
     return translated
 
 # zmienia nazwy plikow korzystajac z list to_repair, translated
 def repair(to_repair, translated):
-    print(to_repair)
-    print(translated)
 
     for file, trans in zip(to_repair, translated):
-        old = to_rapair
-        new = translated
-        os.rename(old,new)
+        os.rename(file,trans)
+    print('Zrobione!')
 
 ##################### główny program ########################
 
@@ -65,15 +62,15 @@ def repair(to_repair, translated):
 REGEX = '[a-zA-Z0-9._-]+'
 
 # słownik translacji
-DICT_TRANSLATE = {'ą' : 'a',
-             'ę' : 'e',
-             'ć' : 'c',
-             'ó' : 'o',
-             'ł' : 'l',
-             'ń' : 'n',
-             'ż' : 'z',
-             'ź' : 'z',
-             'ś' : 's'}
+DICT_TRANSLATE = {'ą' : 'a', 'Ą' : 'A',
+             'ę' : 'e', 'Ę' : 'E',
+             'ć' : 'c', 'Ć' : 'C',
+             'ó' : 'o', 'Ó' : 'O',
+             'ł' : 'l', 'Ł' : 'L',
+             'ń' : 'n', 'Ń' : 'N',
+             'ż' : 'z', 'Ż' : 'Z',
+             'ź' : 'z', 'Ź' : 'Z',
+             'ś' : 's', 'Ś' : 'S',' ' : '_' }
 
 # 1. sprawdź pliki
 to_rapair = check(REGEX)
